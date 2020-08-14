@@ -22,8 +22,12 @@
 
 package com.masterdevskills.cha1.ext1;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 /**
  * TODO : Write a file processor that would read text from a text file.
@@ -46,7 +50,16 @@ public class FileProcessor {
      */
     public List<String> readFileFrom(String fileName) {
 
-        throw new RuntimeException("Not Yet Implemented");
+        List<String> fileList= null;
+        try {
+            fileList = Files.lines(Paths.get(fileName)).collect(Collectors.toList());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        fileList.removeIf(l->l.isEmpty());
+
+        return fileList;
     }
 
     /**
@@ -60,7 +73,11 @@ public class FileProcessor {
      */
     public void writeToFile(List<String> lines, String fileName) {
 
-        throw new RuntimeException("Not Yet Implemented");
+        try {
+            Files.write(Paths.get(fileName), lines);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
 
