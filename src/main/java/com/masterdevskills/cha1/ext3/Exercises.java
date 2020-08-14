@@ -23,6 +23,8 @@
 package com.masterdevskills.cha1.ext3;
 
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.function.UnaryOperator;
 
@@ -41,7 +43,9 @@ public class Exercises {
 	 * @see List#replaceAll(UnaryOperator)
 	 */
 	public static List<Integer> doubling(List<Integer> ints) {
-		throw new RuntimeException("NotYetImplemented");
+
+		ints.replaceAll(listElement->listElement*2);
+		return  ints;
 	}
 
 	/**
@@ -52,7 +56,9 @@ public class Exercises {
 	 * @see List#replaceAll(UnaryOperator)
 	 */
 	public static List<String> addSuffix(List<String> items, String suffix) {
-		throw new RuntimeException("NotYetImplemented");
+		items.replaceAll(item->item+suffix);
+		//throw new RuntimeException("NotYetImplemented");
+		return items;
 	}
 
 	/***
@@ -61,7 +67,9 @@ public class Exercises {
 	 * @param people list of person
 	 * */
 	public static List<Person> sortItemByFirstNameOrderAscending(List<Person> people) {
-		throw new RuntimeException("NotYetImplemented");
+		//throw new RuntimeException("NotYetImplemented");
+		Collections.sort(people,(person1, person2)->person1.getFirstName().compareTo(person2.getFirstName()));
+		return people;
 	}
 
 	/**
@@ -70,7 +78,10 @@ public class Exercises {
 	 * @param people list of person
 	 */
 	public static List<Person> sortByLastNameOrderDescending(List<Person> people) {
-		throw new RuntimeException("NotYetImplemented");
+		Collections.sort(people,(person1,person2)->person2.getLastName().compareTo(person1.getLastName()));
+//		Comparator<Person> comparator = Comparator.comparing(person1 -> person1.getLastName());
+//		people.sort(comparator.reversed());
+		return people;
 	}
 
 	/**
@@ -81,6 +92,8 @@ public class Exercises {
 	 * @param people list of person
 	 */
 	public static List<Person> sortByFirstNameAndThenLastNameAndThenAge(List<Person> people) {
-		throw new RuntimeException("NotYetImplemented");
+		people.sort(Comparator.comparing(Person::getFirstName).thenComparing(Person::getLastName).thenComparing(Person::getAge));
+
+		return people;
 	}
 }
