@@ -24,6 +24,8 @@ package com.masterdevskills.cha1.ext2;
 
 import java.util.List;
 import java.util.StringJoiner;
+import java.util.function.BiConsumer;
+import java.util.function.Consumer;
 
 /**
  * @author A N M Bazlur Rahman @bazlur_rahman
@@ -43,7 +45,9 @@ public class Users {
 	 * @see User#setStatus(Status)
 	 */
 	public static void activatedAll(List<User> users, Status status) {
-		throw new RuntimeException("NotImplemented");
+
+		BiConsumer<List<User>,Status> activatedUsers= (users1, status1) -> users1.forEach(user -> user.setStatus(status1));
+		activatedUsers.accept(users,status);
 	}
 
 	/**
@@ -58,6 +62,10 @@ public class Users {
 
 	public static String makeStringOfAllUsernames(List<User> users) {
 
-		throw new RuntimeException("NotImplemented");
+		StringBuilder sb = new StringBuilder();
+		Consumer<List<User>> name= people->people.forEach(person->sb.append(person).append(","));
+		name.accept(users);
+
+		return sb.deleteCharAt(sb.length() - 1).toString();
 	}
 }
