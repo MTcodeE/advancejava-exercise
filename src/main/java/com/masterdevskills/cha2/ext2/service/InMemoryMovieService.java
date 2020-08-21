@@ -49,7 +49,7 @@ public class InMemoryMovieService {
 	public List<Movie> findAllMovies() {
 		try {
 			var src = new File(
-							getClass().getClassLoader().getResource("movies.json").getFile()
+					"movies.json"
 			);
 			return objectMapper.readValue(src, new TypeReference<>() {
 			});

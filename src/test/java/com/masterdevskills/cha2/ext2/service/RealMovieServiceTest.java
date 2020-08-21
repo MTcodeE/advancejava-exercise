@@ -117,7 +117,8 @@ class RealMovieServiceTest {
 
 	@Test
 	void findFirstMovieTitleWithImdbRatingEqualOrGreater() {
-		var movie = realMovieService.findFirstMovieTitleWithImdbRatingEqualOrGreater(7);
+		var movie = realMovieService.
+				findFirstMovieTitleWithImdbRatingEqualOrGreater(7);
 
 		assertTrue(movie.isPresent());
 		assertThat(movie.get(), is("Going My Way"));
