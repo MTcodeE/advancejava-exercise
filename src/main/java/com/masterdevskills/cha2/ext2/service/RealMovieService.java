@@ -267,12 +267,10 @@ public class RealMovieService {
 	 */
 
 	public Map<String, Long> findNumberOfDistinctMoviesOfEachDirector() {
-//		var allMovies = InMemoryMovieService.getInstance().findAllMovies();
-//		Map<String, List<Movie>> groupBy = allMovies.stream().collect(Collectors.groupingBy(Movie::getDirector),Collectors.counting());
-//		throw new RuntimeException("TODO://ImplementIt");
-//
-//		groupBy.
-		throw new RuntimeException("TODO://ImplementIt");
+		var allMovies = InMemoryMovieService.getInstance().findAllMovies();
+		Map<String, Long> distinctCount = allMovies.stream().distinct().collect(Collectors.groupingBy(Movie::getDirector, Collectors.counting()));
+
+		return distinctCount;
 	}
 
 	/**
@@ -281,7 +279,13 @@ public class RealMovieService {
 	 * @return map containing year and movie tiles comma separated
 	 */
 	public Map<String, String> getMoviesByYear() {
-		throw new RuntimeException("TODO://ImplementIt");
+		var allMovies = InMemoryMovieService.getInstance().findAllMovies();
+		Map<String, String> movieList = allMovies.stream()
+				.collect(Collectors.groupingBy(Movie::getYear,
+						Collectors.mapping(Movie::getTitle, Collectors.joining(", "))));
+
+
+		return movieList;
 	}
 }
 
