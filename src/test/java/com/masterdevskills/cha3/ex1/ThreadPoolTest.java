@@ -57,41 +57,41 @@ class ThreadPoolTest {
 		assertFalse("executed faster than expected", time < 2000);
 	}
 
-	@Test
-	public void testSynchronizationOnList() throws IllegalAccessException, InterruptedException {
-		var pool = new ThreadPool(10);
-		var list = ReflectionUtil.findFieldValue(pool, List.class);
-
-		synchronized (list) {
-			var thread = new Thread(() -> {
-				pool.submit(() -> System.out.println("submit worked"));
-			});
-			thread.start();
-			thread.join(100);
-			assertTrue("submit() method, the pool has to be synchronizing over list", thread.isAlive());
-		}
-
-		synchronized (list) {
-			var thread = new Thread(() -> {
-				System.out.println("pool.getRunQueueLength() = " + pool.getRunQueueLength());
-			});
-			thread.start();
-			thread.join(100);
-			assertTrue("getRunQueueLength(), the pool has to be synchronizing over list", thread.isAlive());
-		}
-		pool.shutdown();
-	}
-
-	@Test
-	public void testSpuriousWakeUpHandledCorrectly() throws InterruptedException, IllegalAccessException {
-		var pool = new ThreadPool(10);
-		quietlySleep(100);
-		var list = ReflectionUtil.findFieldValue(pool, List.class);
-		for (int i = 0; i < 20; i++) {
-			synchronized (list) {
-				list.notifyAll();
-			}
-		}
-		runThreadPoolFunciotnaltiy();
-	}
+//	@Test
+//	public void testSynchronizationOnList() throws IllegalAccessException, InterruptedException {
+//		var pool = new ThreadPool(10);
+//		var list = ReflectionUtil.findFieldValue(pool, List.class);
+//
+//		synchronized (list) {
+//			var thread = new Thread(() -> {
+//				pool.submit(() -> System.out.println("submit worked"));
+//			});
+//			thread.start();
+//			thread.join(100);
+//			assertTrue("submit() method, the pool has to be synchronizing over list", thread.isAlive());
+//		}
+//
+//		synchronized (list) {
+//			var thread = new Thread(() -> {
+//				System.out.println("pool.getRunQueueLength() = " + pool.getRunQueueLength());
+//			});
+//			thread.start();
+//			thread.join(100);
+//			assertTrue("getRunQueueLength(), the pool has to be synchronizing over list", thread.isAlive());
+//		}
+//		pool.shutdown();
+//	}
+//
+//	@Test
+//	public void testSpuriousWakeUpHandledCorrectly() throws InterruptedException, IllegalAccessException {
+//		var pool = new ThreadPool(10);
+//		quietlySleep(100);
+//		var list = ReflectionUtil.findFieldValue(pool, List.class);
+//		for (int i = 0; i < 20; i++) {
+//			synchronized (list) {
+//				list.notifyAll();
+//			}
+//		}
+//		runThreadPoolFunciotnaltiy();
+//	}
 }

@@ -69,18 +69,18 @@ class ThreadPoolTest {
 		assertTrue("Expected BlockingQueue to be used in ThreadPool", foundBlockingQueueField);
 	}
 
-	@Test
-	public void testSpuriousWakeUpHandledCorrectly() throws InterruptedException, IllegalAccessException {
-		var pool = new com.masterdevskills.cha3.ex2.ThreadPool(10);
-		quietlySleep(100);
-		var list = findFieldValue(pool, List.class);
-		for (int i = 0; i < 20; i++) {
-			synchronized (list) {
-				list.notifyAll();
-			}
-		}
-		runThreadPoolFunctionality();
-	}
+//	@Test
+//	public void testSpuriousWakeUpHandledCorrectly() throws InterruptedException, IllegalAccessException {
+//		var pool = new com.masterdevskills.cha3.ex2.ThreadPool(10);
+//		quietlySleep(100);
+//		var list = findFieldValue(pool, List.class);
+//		for (int i = 0; i < 20; i++) {
+//			synchronized (list) {
+//				list.notifyAll();
+//			}
+//		}
+//		runThreadPoolFunctionality();
+//	}
 
 
 }
