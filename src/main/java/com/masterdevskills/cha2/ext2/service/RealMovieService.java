@@ -184,7 +184,7 @@ public class RealMovieService {
 	public Optional<String> findAnyMovieTitleWithImdbRatingEqualOrGreater(double rating) {
 
 		var allMovies = InMemoryMovieService.getInstance().findAllMovies();
-		Stream<Movie> movieStream = allMovies.stream().filter(movie ->movie.getImdbRating()==rating);
+		Stream<Movie> movieStream = allMovies.stream().filter(movie ->movie.getImdbRating()>=rating);
 		Optional<String> findany = movieStream.map(m -> m.getTitle()).findAny();
 		return findany;
 	}
@@ -201,7 +201,7 @@ public class RealMovieService {
 
 		var allMovies = InMemoryMovieService.getInstance().findAllMovies();
 
-		Stream<Movie> movieStream = allMovies.stream().filter(movie ->movie.getImdbRating()==rating);
+		Stream<Movie> movieStream = allMovies.stream().filter(movie ->movie.getImdbRating()>=rating);
 		Optional<String> FindFirst = movieStream.map(m -> m.getTitle()).findFirst();
 		return FindFirst;
 	}

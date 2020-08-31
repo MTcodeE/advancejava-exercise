@@ -1,11 +1,13 @@
 package com.masterdevskills.cha3.ext3;
 
+import com.masterdevskills.cha3.ex3.ThreadPool;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Stream;
 
 import static com.masterdevskills.cha3.ReflectionUtil.findFieldValue;
 import static com.masterdevskills.cha3.SleepUtil.quietlySleep;
@@ -17,7 +19,7 @@ import static org.junit.Assert.assertTrue;
 class ThreadPoolTest {
 	@Test
 	public void testTasksAreStopped() throws InterruptedException {
-		var pool = new com.masterdevskills.cha3.ex2.ThreadPool(1);
+		var pool = new ThreadPool(1);
 		var latch = new CountDownLatch(1);
 		pool.submit(() -> {
 			try {
@@ -39,7 +41,7 @@ class ThreadPoolTest {
 
 	private void runThreadPoolFunctionality() throws InterruptedException {
 		CountDownLatch countDownLatch = new CountDownLatch(20);
-		com.masterdevskills.cha3.ex2.ThreadPool threadPool = new com.masterdevskills.cha3.ex2.ThreadPool(10);
+		ThreadPool threadPool = new ThreadPool(10);
 		var start = System.currentTimeMillis();
 		for (int i = 0; i < 20; i++) {
 			threadPool.submit(() -> {
@@ -60,13 +62,9 @@ class ThreadPoolTest {
 
 	@Test
 	public void testIfBlockingQueueUsed() {
-		boolean foundBlockingQueueField = false;
-		for (var field : com.masterdevskills.cha3.ex2.ThreadPool.class.getDeclaredFields()) {
-			if (BlockingQueue.class.isAssignableFrom(field.getType())) {
-				foundBlockingQueueField = true;
-			}
-		}
-		assertTrue("Expected BlockingQueue to be used in ThreadPool", foundBlockingQueueField);
+		var usedBlockingQueue = Stream.of(com.masterdevskills.cha3.ex2.ThreadPool.class.getDeclaredFields())
+				.anyMatch(field -> BlockingQueue.class.isAssignableFrom(field.getType()));
+		assertTrue("Expected BlockingQueue to be used in ThreadPool", usedBlockingQueue);
 	}
 
 //	@Test
